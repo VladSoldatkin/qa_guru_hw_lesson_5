@@ -2,7 +2,10 @@
   "name": "qa_guru_hw_lesson_5",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "testui": "npx playwright test --ui"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
