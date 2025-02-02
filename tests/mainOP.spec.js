@@ -1,10 +1,14 @@
 import { test, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
 
-const URL_UI = "https://realworld.qa.guru/#/";
+const URL_UI = "https://realworld.qa.guru/#";
 
 //test suit
 test.describe("3 test", () => {
+  //Добавил beforeEach
+  test.beforeEach(async ({ page }) => {
+    await page.goto(URL_UI);
+  });
   // Автоизация + создание статьи.
   test("Регистарция и создание новой статьи", async ({ page }) => {
     await page.goto("https://realworld.qa.guru/#");
