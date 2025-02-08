@@ -26,7 +26,7 @@ test.describe("Change password and make new Login", () => {
     await expect(page.getByRole("navigation")).toContainText(USER.username);
   });
 
-  test("New Article, Post comment, Change password", async ({ page }) => {
+  test("Change password", async ({ page }) => {
     const profilePage = new ProfilePage(page);
     //Переход в профиль
     await page.getByRole("navigation").getByAltText(USER.username).click();
