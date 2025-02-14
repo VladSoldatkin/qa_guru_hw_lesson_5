@@ -4,6 +4,9 @@ import {
   RegisterPage,
   NewArticle,
   ProfilePage,
+  LoginPage,
+  LogoutPage,
+  PostComment,
 } from "../src/pages/index";
 
 import {
@@ -11,9 +14,6 @@ import {
   ArticleBuilder,
   PostBuilder,
 } from "../src/helpers/builder/index";
-
-//to do
-const BASIC_URL = "https://realworld.qa.guru/#";
 
 //builder
 const userBuilder = new UserBuilder()
@@ -32,19 +32,19 @@ const postBuilder = new PostBuilder().addText().generate();
 test.describe("Create a new article, Post comment, Change password", () => {
   //Добавил beforeEach
   test.beforeEach(async ({ page }) => {
-    await page.goto(BASIC_URL);
+    //await page.goto();
     const mainPage = new MainPage(page);
     const registerPage = new RegisterPage(page);
 
     //Переход на страницу регистрации;
-    await mainPage.open(BASIC_URL);
+    await mainPage.open();
     await mainPage.gotoRegister();
     await registerPage.register(
       userBuilder.userName,
       userBuilder.userEmail,
       userBuilder.userPassword
     );
-    await expect(page.getByRole("navigation")).toContainText(
+    await expect(registerPage.expectProfileUsername).toContainText(
       userBuilder.userName
     );
   });
@@ -57,60 +57,38 @@ test.describe("Create a new article, Post comment, Change password", () => {
       articleBuilder.describe,
       articleBuilder.text
     );
-    await expect(page.getByRole("heading")).toContainText(articleBuilder.title);
-    await expect(
-      page.getByRole("button", { name: "Post Comment" })
-    ).toBeVisible();
+    await expect(newArticle.expectArticleTitle).toContainText(
+      articleBuilder.title
+    );
   });
 
   test("Post comment", async ({ page }) => {
     const newArticle = new NewArticle(page);
+    const postComment = new PostComment(page);
     //Создание статьи;
     await newArticle.createNewArticle(
       articleBuilder.title,
       articleBuilder.describe,
       articleBuilder.text
     );
-
-    //to do - обернуть в PO
     await expect(page.getByRole("heading")).toContainText(articleBuilder.title);
-    await expect(
-      page.getByRole("button", { name: "Post Comment" })
-    ).toBeVisible();
-    await page.getByPlaceholder("Write a comment...").click();
-    await page.getByPlaceholder("Write a comment...").fill(postBuilder.text);
-    await page.getByRole("button", { name: "Post Comment" }).click();
-    await expect(page.getByRole("main")).toContainText(postBuilder.text);
+    await postComment.postComment(postBuilder.text);
+    await expect(postComment.expectPost).toContainText(postBuilder.text);
   });
 
   test("Change password", async ({ page }) => {
-    const profilePage = new ProfilePage(page);
-    //to do - обернуть в PO
-    //Переход в профиль
-    await page
-      .getByRole("navigation")
-      .getByAltText(userBuilder.userName)
-      .click();
+    const profilePage = new ProfilePage(page, userBuilder.userName);
+    const loginPage = new LoginPage(page);
+    const registerPage = new RegisterPage(page);
+    const logoutPage = new LogoutPage(page, userBuilder.userName);
     //Действие: смена пароля;
     await profilePage.changePass(userBuilder.userNewPassword);
     //Действия: деавторизация;
-    await page.getByText(userBuilder.userName).click();
-    await page.getByRole("link", { name: "Logout" }).click();
-    await expect(page.getByRole("link", { name: "Login" })).toBeVisible();
+    await logoutPage.logout();
     //Действия: Авторизация с новым паролем;
-    await page.getByRole("link", { name: "Login" }).click();
-    await page.getByRole("textbox", { name: "Email" }).click();
-    await page
-      .getByRole("textbox", { name: "Email" })
-      .fill(userBuilder.userEmail);
-    await page.getByRole("textbox", { name: "Password" }).click();
-    await page
-      .getByRole("textbox", { name: "Password" })
-      .fill(userBuilder.userNewPassword);
-    await page.getByRole("button", { name: "Login" }).click();
-    await expect(page.getByRole("navigation")).toContainText(
+    await loginPage.login(userBuilder.userEmail, userBuilder.userNewPassword);
+    await expect(registerPage.expectProfileUsername).toContainText(
       userBuilder.userName
     );
-    await expect(page.getByRole("button", { name: "Your Feed" })).toBeVisible();
   });
 });
