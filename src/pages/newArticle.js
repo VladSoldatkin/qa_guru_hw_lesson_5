@@ -10,6 +10,7 @@ export class NewArticle {
       name: "Write your article (in",
     });
     this.publishBtn = page.getByRole("button", { name: "Publish Article" });
+    this.expectArticleTitle = page.getByRole("heading");
   }
 
   //метод

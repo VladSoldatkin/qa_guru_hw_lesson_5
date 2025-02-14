@@ -10,7 +10,7 @@ export class MainPage {
   async gotoRegister() {
     await this.signupBtn.click();
   }
-  async open(basic_url) {
-    await this.page.goto(basic_url);
+  async open() {
+    await this.page.goto("https://realworld.qa.guru/#");
   }
 }
