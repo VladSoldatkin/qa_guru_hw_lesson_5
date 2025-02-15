@@ -4,4 +4,4 @@ export * from "./profilePage";
 export * from "./registerPage";
 export * from "./loginPage";
 export * from "./logoutPage";
-export * from "./postcommentPage";
+export * from "./commentPage";
