@@ -1,10 +1,8 @@
 import { test, expect } from "@playwright/test";
 import {
   MainPage,
-  RegisterPage,
   NewArticle,
   ProfilePage,
-  LoginPage,
   LogoutPage,
   PostComment,
 } from "../src/pages/index";
@@ -32,19 +30,18 @@ const postBuilder = new PostBuilder().addText().generate();
 test.describe("Create a new article, Post comment, Change password", () => {
   //Добавил beforeEach
   test.beforeEach(async ({ page }) => {
-    //await page.goto();
     const mainPage = new MainPage(page);
-    const registerPage = new RegisterPage(page);
+    //const signupPage = new SignupPage(page);
 
     //Переход на страницу регистрации;
     await mainPage.open();
-    await mainPage.gotoRegister();
-    await registerPage.register(
+    //await mainPage.gotoRegister();
+    await mainPage.signup(
       userBuilder.userName,
       userBuilder.userEmail,
       userBuilder.userPassword
     );
-    await expect(registerPage.expectProfileUsername).toContainText(
+    await expect(mainPage.expectProfileUsername).toContainText(
       userBuilder.userName
     );
   });
@@ -78,16 +75,17 @@ test.describe("Create a new article, Post comment, Change password", () => {
 
   test("Change password", async ({ page }) => {
     const profilePage = new ProfilePage(page, userBuilder.userName);
-    const loginPage = new LoginPage(page);
-    const registerPage = new RegisterPage(page);
+    //const loginPage = new LoginPage(page);
+    //const signupPage = new SignupPage(page);
+    const mainPage = new MainPage(page);
     const logoutPage = new LogoutPage(page, userBuilder.userName);
     //Действие: смена пароля;
     await profilePage.changePass(userBuilder.userNewPassword);
     //Действия: деавторизация;
     await logoutPage.logout();
     //Действия: Авторизация с новым паролем;
-    await loginPage.login(userBuilder.userEmail, userBuilder.userNewPassword);
-    await expect(registerPage.expectProfileUsername).toContainText(
+    await mainPage.login(userBuilder.userEmail, userBuilder.userNewPassword);
+    await expect(mainPage.expectProfileUsername).toContainText(
       userBuilder.userName
     );
   });
