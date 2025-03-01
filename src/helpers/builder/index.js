@@ -1,3 +1,3 @@
 export * from "./user.builder";
-export * from "./newarticle.builder";
+export * from "./article.builder";
 export * from "./post.builder";
