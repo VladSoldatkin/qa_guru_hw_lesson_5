@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import {
   MainPage,
-  NewArticle,
+  ArticlePage,
   ProfilePage,
   LogoutPage,
   PostComment,
@@ -31,11 +31,8 @@ test.describe("Create a new article, Post comment, Change password", () => {
   //Добавил beforeEach
   test.beforeEach(async ({ page }) => {
     const mainPage = new MainPage(page);
-    //const signupPage = new SignupPage(page);
-
     //Переход на страницу регистрации;
     await mainPage.open();
-    //await mainPage.gotoRegister();
     await mainPage.signup(
       userBuilder.userName,
       userBuilder.userEmail,
@@ -47,23 +44,23 @@ test.describe("Create a new article, Post comment, Change password", () => {
   });
 
   test("New Article", async ({ page }) => {
-    const newArticle = new NewArticle(page);
+    const articlePage = new ArticlePage(page);
     //Создание статьи;
-    await newArticle.createNewArticle(
+    await articlePage.createNewArticle(
       articleBuilder.title,
       articleBuilder.describe,
       articleBuilder.text
     );
-    await expect(newArticle.expectArticleTitle).toContainText(
+    await expect(articlePage.expectArticleTitle).toContainText(
       articleBuilder.title
     );
   });
 
   test("Post comment", async ({ page }) => {
-    const newArticle = new NewArticle(page);
+    const articlePage = new ArticlePage(page);
     const postComment = new PostComment(page);
     //Создание статьи;
-    await newArticle.createNewArticle(
+    await articlePage.createNewArticle(
       articleBuilder.title,
       articleBuilder.describe,
       articleBuilder.text
