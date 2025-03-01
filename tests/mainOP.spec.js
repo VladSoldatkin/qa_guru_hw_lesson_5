@@ -4,7 +4,7 @@ import {
   ArticlePage,
   ProfilePage,
   LogoutPage,
-  PostComment,
+  CommentPage,
 } from "../src/pages/index";
 
 import {
@@ -58,7 +58,7 @@ test.describe("Create a new article, Post comment, Change password", () => {
 
   test("Post comment", async ({ page }) => {
     const articlePage = new ArticlePage(page);
-    const postComment = new PostComment(page);
+    const commentPage = new CommentPage(page);
     //Создание статьи;
     await articlePage.createNewArticle(
       articleBuilder.title,
@@ -66,8 +66,8 @@ test.describe("Create a new article, Post comment, Change password", () => {
       articleBuilder.text
     );
     await expect(page.getByRole("heading")).toContainText(articleBuilder.title);
-    await postComment.postComment(postBuilder.text);
-    await expect(postComment.expectPost).toContainText(postBuilder.text);
+    await commentPage.postComment(postBuilder.text);
+    await expect(commentPage.expectPost).toContainText(postBuilder.text);
   });
 
   test("Change password", async ({ page }) => {
