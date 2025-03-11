@@ -9,12 +9,14 @@ export class ProfilePage {
 
   //метод
   async changePass(newPassword) {
-    await this.profileButton.click();
-    await this.chooseSettings.click();
+    await test.step("Сменить пароль", async () => {
+      await this.profileButton.click();
+      await this.chooseSettings.click();
 
-    await this.passFiled.click();
-    await this.passFiled.fill(newPassword);
+      await this.passFiled.click();
+      await this.passFiled.fill(newPassword);
 
-    await this.updateBtn.click();
+      await this.updateBtn.click();
+    });
   }
 }

@@ -6,7 +6,9 @@ export class LogoutPage {
   }
 
   async logout() {
-    await this.profileButton.click();
-    await this.logoutBtn.click();
+    await test.step("Выход из системы", async () => {
+      await this.profileButton.click();
+      await this.logoutBtn.click();
+    });
   }
 }
