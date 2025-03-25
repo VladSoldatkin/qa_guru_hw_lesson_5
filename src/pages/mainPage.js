@@ -17,24 +17,27 @@ export class MainPage {
     this.loginBtn = page.getByRole("button", { name: "Login" });
   }
 
-  //method "SignUp"
   async signup(username, email, password) {
-    await this.signupLink.click();
-    await this.usernameField.click();
-    await this.usernameField.fill(username);
-    await this.emailField.click();
-    await this.emailField.fill(email);
-    await this.passwordField.click();
-    await this.passwordField.fill(password);
-    await this.sighnupBtn.click();
+    await test.step("Регистрация нового пользователя", async () => {
+      await this.signupLink.click();
+      await this.usernameField.click();
+      await this.usernameField.fill(username);
+      await this.emailField.click();
+      await this.emailField.fill(email);
+      await this.passwordField.click();
+      await this.passwordField.fill(password);
+      await this.sighnupBtn.click();
+    });
   }
-  //method "Login"
+
   async login(email, password) {
-    await this.loginLink.click();
-    await this.emailInput.click();
-    await this.emailInput.fill(email);
-    await this.passwordInput.click();
-    await this.passwordInput.fill(password);
+    await test.step("Авторизация пользователя по логину и паролю", async () => {
+      await this.loginLink.click();
+      await this.emailInput.click();
+      await this.emailInput.fill(email);
+      await this.passwordInput.click();
+      await this.passwordInput.fill(password);
+    });
   }
   //method "Logout"
   /*async logout() {
@@ -43,6 +46,8 @@ export class MainPage {
   }*/
 
   async open() {
-    await this.page.goto("https://realworld.qa.guru/#");
+    await test.step("Открыть главную старницу в браузере", async () => {
+      await this.page.goto("https://realworld.qa.guru/#");
+    });
   }
 }
