@@ -1,3 +1,4 @@
+import * as allure from "allure-playwright";
 import { test, expect } from "@playwright/test";
 import { MainPage, ArticlePage, LogoutPage } from "../src/pages/index";
 
@@ -35,6 +36,13 @@ test.describe("Create, edit, delete article", () => {
     );
   });
   test("New Article", async ({ page }) => {
+    await allure.epic("Авторизауия");
+    await allure.feature("Авторизация пользователя");
+    await allure.story("Авторизация через пароль");
+    //await allure.displayName("Test Authentication");
+    await allure.owner("Vlad Sold");
+    await allure.tags("Web interface", "Authentication");
+    await allure.severity("blocker");
     const articlePage = new ArticlePage(page);
     //Создание статьи;
     await articlePage.createNewArticle(
