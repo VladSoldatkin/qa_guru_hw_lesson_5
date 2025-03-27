@@ -39,35 +39,29 @@ export class ArticlePage {
 
   //метод
   async createNewArticle(title, description, text) {
-    await test.step("Создание новой статьи", async () => {
-      await this.newarticleBtn.click();
-      await this.articleTitle.click();
-      await this.articleTitle.fill(title);
-      await this.articleDescription.click();
-      await this.articleDescription.fill(description);
-      await this.articleText.click();
-      await this.articleText.fill(text);
-      await this.publishBtn.click();
-    });
+    await this.newarticleBtn.click();
+    await this.articleTitle.click();
+    await this.articleTitle.fill(title);
+    await this.articleDescription.click();
+    await this.articleDescription.fill(description);
+    await this.articleText.click();
+    await this.articleText.fill(text);
+    await this.publishBtn.click();
   }
 
   async editArticle(newtitle, newdescription, newtext) {
-    await test.step("Редактирование статьи", async () => {
-      await this.editArticleBtn.nth(1).click();
-      await this.editArticleTitle.click();
-      await this.editArticleTitle.fill(newtitle);
-      await this.editArticleDescription.click();
-      await this.editArticleDescription.fill(newdescription);
-      await this.editArticleText.click();
-      await this.editArticleText.fill(newtext);
-      await this.updateArticleBtn.click();
-    });
+    await this.editArticleBtn.nth(1).click();
+    await this.editArticleTitle.click();
+    await this.editArticleTitle.fill(newtitle);
+    await this.editArticleDescription.click();
+    await this.editArticleDescription.fill(newdescription);
+    await this.editArticleText.click();
+    await this.editArticleText.fill(newtext);
+    await this.updateArticleBtn.click();
   }
 
   async deleteArticle() {
-    await test.step("Удалить статью", async () => {
-      await this.deleteArticleBtn.first().click();
-      await this.gotobaseurl;
-    });
+    await this.deleteArticleBtn.first().click();
+    await this.gotobaseurl;
   }
 }
