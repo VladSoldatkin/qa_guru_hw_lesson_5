@@ -21,6 +21,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+      # Install PlayWright packets
+      - name: Install PlayWright packets
+        run: npm i
       # install PlayWright
       - name: Install PlayWright
         run: npx playwright install --with-deps #command for install PW with browsers're needed
