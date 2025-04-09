@@ -1,8 +1,8 @@
 import * as allure from "allure-playwright";
 import { test, expect } from "@playwright/test";
-import { MainPage, ArticlePage, LogoutPage } from "../src/pages/index";
+import { MainPage, ArticlePage, LogoutPage } from "../../src/pages/index";
 
-import { UserBuilder, ArticleBuilder } from "../src/helpers/builder/index";
+import { UserBuilder, ArticleBuilder } from "../../src/helpers/builder/index";
 
 //builder
 const userBuilder = new UserBuilder()
