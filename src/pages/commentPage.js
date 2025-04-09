@@ -11,16 +11,12 @@ export class CommentPage {
   }
 
   async postComment(text) {
-    await test.step("Добавить комментарий к статье", async () => {
-      await this.addCommment.click();
-      await this.addCommment.fill(text);
-      await this.postBtn.click();
-    });
+    await this.addCommment.click();
+    await this.addCommment.fill(text);
+    await this.postBtn.click();
   }
 
   async deleteComment() {
-    await test.step("Удалить комментарий", async () => {
-      await this.deleteCommentBtn.click();
-    });
+    await this.deleteCommentBtn.click();
   }
 }
