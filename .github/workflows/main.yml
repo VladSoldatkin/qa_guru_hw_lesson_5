@@ -1,0 +1,30 @@
+# Workflow name
+name: PW CI/CD test
+
+#When the autotests start ?
+on: 
+  push: 
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+    #manual start
+  workflow_dispatch:
+#jobs
+jobs:
+  e2eTests:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      # checkout of branch
+      - name: Checkout
+      - uses: actions/checkout@v4.2.2
+      # install Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      # install PlayWright
+      - name: Install PlayWright
+        run: npx playwright indtall --with-deps #command for install PW with browsers're needed
+      # start tests
+      - name: Start autotests
+        run: npm test 
