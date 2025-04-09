@@ -23,7 +23,7 @@ jobs:
           node-version: lts/*
       # install PlayWright
       - name: Install PlayWright
-      - run: npx playwright indtall --with-deps #command for install PW with browsers're needed
+        run: npx playwright indtall --with-deps #command for install PW with browsers're needed
       # start tests
       - name: Start autotests
-      - run: npm test 
+        run: npm test 
